@@ -29,13 +29,18 @@ function App() {
     });
   };
 
-  const allNumbersArr = [...data, ...asyncData].map((number) => {
+  const allNumbersArr = [...data, ...asyncData];
+  const filter = [...new Set(allNumbersArr)];
+  // const filteredNumbersArr = Array.from(filter);
+  const sorting = filter.sort((a, b) => a - b);
+
+  const sortedNumbersArr = [sorting].map((number) => {
     return <p key={number}>{number}</p>;
   });
 
   return (
     <>
-      {allNumbersArr.map((number) => {
+      {sortedNumbersArr.map((number) => {
         return (
           <Fragment>
             <p>{number}</p>
