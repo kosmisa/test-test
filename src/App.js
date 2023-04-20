@@ -31,7 +31,6 @@ function App() {
 
   const allNumbersArr = [...data, ...asyncData];
   const filter = [...new Set(allNumbersArr)];
-  // const filteredNumbersArr = Array.from(filter);
   const sorting = filter.sort((a, b) => a - b);
 
   const sortedNumbersArr = [sorting].map((number) => {
