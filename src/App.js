@@ -33,7 +33,7 @@ function App() {
   const filter = [...new Set(allNumbersArr)];
   const sorting = filter.sort((a, b) => a - b);
 
-  const sortedNumbersArr = [sorting].map((number) => {
+  const sortedNumbersArr = sorting.map((number) => {
     return <p key={number}>{number}</p>;
   });
 
