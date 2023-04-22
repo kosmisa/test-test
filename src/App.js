@@ -1,4 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
+import useRandomNumbers from "./useRandomNumberHook";
 
 function App() {
   const [asyncData, setAsyncData] = useState([]);
@@ -28,62 +29,18 @@ function App() {
       }, 2000);
     });
   };
-  
+
   const allNumbersArr = [...data, ...asyncData];
   const filter = [...new Set(allNumbersArr)];
   const sorting = filter.sort((a, b) => a - b);
-  
+
   const sortedNumbersArr = sorting.map((number) => {
     return <p key={number}>{number}</p>;
   });
-  //***************************************************************************/
-  function useRandomNumbers(length, range) {
-    const [hookAsyncData, setHookAsyncData] = useState([]);
-    const [error, setError] = useState(null);
-    
-    useEffect(() => {
-      async function fetchData(){
-        try{
-          setIsLoading
-        }
-      }
-    }, [length, range]);
 
-    async function generator() {
-      const newArr = [];
+  const [hookAsyncData, error] = useRandomNumbers(3, 7);
 
-      for (let i = 0; i < length; i++) {
-        const randomNumbers = Math.floor(Math.random() * range + 1);
-        newArr.push(randomNumbers);
-      }
-      return newArr;
-    }
-
-    async function medianValue() {
-      const initialValue = 0;
-      const sum = hookAsyncData.reduce(
-        (accumulator, currentValue) => currentValue + accumulator,
-        initialValue
-      );
-
-      const median = sum / hookAsyncData.length;
-
-      return median;
-    }
-
-    // useEffect(() => {
-    //   async function fetch() {
-    //     await generator();
-    //   }
-    //   fetch();
-    // }, [length, range]);
-
-
-    return hookAsyncData;
-  }
-
-  const customHookArr = useRandomNumbers(9, 5);
-  const hookArr = customHookArr.map((number) => {
+  const hookArr = hookAsyncData.map((number) => {
     return <p key={number}>{number}</p>;
   });
 
@@ -96,6 +53,7 @@ function App() {
           </Fragment>
         );
       })}
+      {error && <p>{error}</p>}
       {hookArr.map((number) => {
         return (
           <Fragment>
