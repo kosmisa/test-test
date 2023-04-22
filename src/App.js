@@ -38,7 +38,7 @@ function App() {
     return <p key={number}>{number}</p>;
   });
 
-  const [hookAsyncData, error] = useRandomNumbers(3, 7);
+  const [hookAsyncData, error] = useRandomNumbers(3, 9);
 
   const hookArr = hookAsyncData.map((number) => {
     return <p key={number}>{number}</p>;
@@ -47,24 +47,14 @@ function App() {
   return (
     <>
       {sortedNumbersArr.map((number) => {
-        return (
-          <Fragment>
-            <p>{number}</p>
-          </Fragment>
-        );
+        return <p>{number}</p>;
+      })}
+      {hookArr.map((number) => {
+        return <p>{number}</p>;
       })}
       {error && <p>{error}</p>}
-      {hookArr.map((number) => {
-        return (
-          <Fragment>
-            <p>{number}</p>
-          </Fragment>
-        );
-      })}
     </>
   );
 }
 
 export default App;
-
-//NE MOGU SAD DA GA CISTIM JER NEMAM POJMA STA SAM NA KRAJU NAPISAO. SUTRA....
