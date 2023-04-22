@@ -40,9 +40,7 @@ function App() {
   return (
     <>
       {sortedNumberElements.map((number) => {
-        <>
-          return <p>{number}</p>;
-        </>;
+        return <p>{number}</p>;
       })}
     </>
   );
