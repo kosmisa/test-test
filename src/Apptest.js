@@ -24,7 +24,7 @@ function App() {
     return arrOfRandomNumbers;
   };
 
-  const [data, setData] = useState(getData());// ne moze drugacije da se invokuje sinhrona funkcija (sem useEffect-a)
+  const [data, setData] = useState(getData()); // ne moze drugacije da se invokuje sinhrona funkcija (sem useEffect-a)
 
   //Ansihrona funkcija
   const getAsyncData = () => {
@@ -57,3 +57,32 @@ function App() {
 }
 
 export default App;
+
+import { useState, useEffect } from "react";
+
+function useRandomNumbers(length, min, max) {
+  const [numbers, setNumbers] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const generateRandomNumbers = async () => {
+      try {
+        const arr = Array.from({ length }, () =>
+          Math.floor(Math.random() * (max - min + 1) + min)
+        );
+        const sorted = arr.sort((a, b) => a - b);
+        const median = sorted[Math.floor(sorted.length / 2)];
+        if (median < 5) {
+          throw new Error("Median value is less than 5");
+        }
+        setNumbers(sorted);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    generateRandomNumbers();
+  }, [length, min, max]);
+
+  return [numbers, error];
+}
