@@ -74,8 +74,8 @@ function useRandomNumbers(length, range) {
 
   useEffect(() => {
     fetchMedian()
-      .then(() => {
-        setError(null);
+      .then((value) => {
+        setError(value);
       })
       .catch((error) => {
         setError(error.message);

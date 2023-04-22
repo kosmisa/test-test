@@ -25,6 +25,7 @@ Create a search input field that allows users to search for a specific number wi
 Implement debouncing for the search input to improve performance. Debounce the search input so that the search function is only called after the user has stopped typing for a specified delay (e.g., 300ms). Use the useEffect and useCallback hooks to implement the debouncing functionality.
 Highlight the paragraphs containing the searched number using DOM manipulation in React. Use the useRef hook to create a reference for each paragraph element, and update the corresponding paragraph's styles when the user searches for a number.
 Add a filter functionality that allows users to display only the numbers that meet specific criteria, such as even numbers or numbers greater than a certain value. Implement the filter functionality using the useCallback hook, ensuring the filter function is only re-created when its dependencies change.
+
 imas fore do nedelje
 vazi se sve sto pushujes na github, uradices branch out sa main/master grane, grana nek ti se zove kako god, npr feature/kosmi123
 i onda kad zavrsis uradis Pull request na to
