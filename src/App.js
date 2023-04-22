@@ -29,22 +29,20 @@ function App() {
     });
   };
 
-  const allNumbersArr = [...data, ...asyncData];
-  const filter = [...new Set(allNumbersArr)];
-  const sorting = filter.sort((a, b) => a - b);
+  const combinedData = [...data, ...asyncData];
+  const uniqueNumbers = [...new Set(combinedData)];
+  const sortedNumbers = uniqueNumbers.sort((a, b) => a - b);
 
-  const sortedNumbersArr = sorting.map((number) => {
+  const sortedNumberElements = sortedNumbers.map((number) => {
     return <p key={number}>{number}</p>;
   });
 
   return (
     <>
-      {sortedNumbersArr.map((number) => {
-        return (
-          <Fragment>
-            <p>{number}</p>
-          </Fragment>
-        );
+      {sortedNumberElements.map((number) => {
+        <>
+          return <p>{number}</p>;
+        </>;
       })}
     </>
   );
