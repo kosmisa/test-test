@@ -66,6 +66,12 @@ function useRandomNumbers(length, range) {
     });
   }, [length, range]);
 
+  const handleClick = () => {
+    fetchNum().then((value) => {
+      setHookAsyncData(value);
+    });
+  };
+
   useEffect(() => {
     fetchMedian()
       .then(() => {
@@ -76,7 +82,7 @@ function useRandomNumbers(length, range) {
       });
   }, [hookAsyncData]);
 
-  return [hookAsyncData, error];
+  return [hookAsyncData, error, handleClick];
 }
 
 export default useRandomNumbers;

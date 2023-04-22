@@ -38,7 +38,7 @@ function App() {
     return <p key={number}>{number}</p>;
   });
 
-  const [hookAsyncData, error] = useRandomNumbers(3, 9);
+  const [hookAsyncData, error, handleClick] = useRandomNumbers(3, 9);
 
   const hookArr = hookAsyncData.map((number) => {
     return <p key={number}>{number}</p>;
@@ -46,6 +46,7 @@ function App() {
 
   return (
     <>
+      <button onClick={handleClick}>Regenerate Numbers</button>
       {sortedNumberElements.map((number) => {
         return <p>{number}</p>;
       })}
