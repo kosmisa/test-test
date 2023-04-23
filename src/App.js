@@ -38,7 +38,7 @@ function App() {
     return <p key={number}>{number}</p>;
   });
 
-  const [hookAsyncData, error, handleClick] = useRandomNumbers(3, 9);
+  const [hookAsyncData, error, handleClick] = useRandomNumbers(3, 10);
 
   const hookArr = hookAsyncData.map((number) => {
     return <p key={number}>{number}</p>;

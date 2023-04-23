@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "url": "http://localhost:3000/static/js/C:/Users/kosmi/OneDrive/Desktop/programiranje/Html+css+javascript/ProjektiVezbeB/test-test/src/useRandomNumberHook.js",
             "webRoot": "${workspaceFolder}"
         }
     ]

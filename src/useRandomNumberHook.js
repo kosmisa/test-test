@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function useRandomNumbers(length, range) {
   const [hookAsyncData, setHookAsyncData] = useState([]);
   const [error, setError] = useState("");
+  // const [median, setMedian] = useState();
 
   const generator = () => {
     const newArr = [];
@@ -13,12 +14,11 @@ function useRandomNumbers(length, range) {
     }
     return newArr;
   };
-
   const fetchNum = () => {
     return new Promise((res, rej) => {
       setTimeout(() => {
         res(generator());
-      }, 0);
+      }, 3000);
     });
   };
 
@@ -32,22 +32,25 @@ function useRandomNumbers(length, range) {
     } else {
       median = sorted[(sorted.length - 1) / 2];
     }
-    return median;
+
+    // if (median < 5) {
+    //   throw new Error("Error median value is less than 5!");
+    // } else {
+    //   return median;
+    // }
   };
 
   const fetchMedian = () => {
-    const result = medianValue();
-    if (result < 5) {
+    const reuslt = medianValue();
+    if (reuslt < 5) {
       throw new Error("Error median value is less than 5!");
     } else {
-      return result;
+      return reuslt;
     }
   };
 
   const handleClick = () => {
-    fetchNum().then((value) => {
-      setHookAsyncData(value);
-    });
+    setHookAsyncData(generator());
   };
 
   useEffect(() => {
