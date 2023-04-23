@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useRandomNumbers from "./useRandomNumberHook";
 
 function App() {
@@ -46,6 +46,9 @@ function App() {
 
   return (
     <>
+      <label>
+        Search number: <input name="myInput"></input>
+      </label>
       <button onClick={handleClick}>Regenerate Numbers</button>
       {sortedNumberElements.map((number) => {
         return <p>{number}</p>;
