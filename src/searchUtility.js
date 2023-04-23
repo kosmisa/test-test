@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import { useEffect, useCallback } from "react";
 
 function debounce(func, timeout = 3000) {
