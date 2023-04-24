@@ -38,18 +38,8 @@ function App() {
     return <p key={number}>{number}</p>;
   });
 
-  const [hookAsyncData, error, handleClick] = useRandomNumbers(3, 10);
-
-  const hookArr = hookAsyncData.map((number) => {
-    return <p key={number}>{number}</p>;
-  });
-
   return (
     <>
-      <label>
-        Search number: <input name="myInput"></input>
-      </label>
-      <button onClick={handleClick}>Regenerate Numbers</button>
       {sortedNumberElements.map((number) => {
         return <p>{number}</p>;
       })}
