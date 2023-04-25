@@ -22,6 +22,7 @@ function useRandomNumbers(length, range) {
   const [hookAsyncData, setHookAsyncData] = useState(generator());
 
   const medianValue = () => {
+    debugger;
     const arr = hookAsyncData;
     const sorted = arr.sort((a, b) => a - b);
     let median = null;
