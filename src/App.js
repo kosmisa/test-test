@@ -34,8 +34,6 @@ function App() {
   const uniqueNumbers = [...new Set(combinedData)];
   const sortedNumbers = uniqueNumbers.sort((a, b) => a - b);
 
-  const test = test;
-
   const sortedNumberElements = sortedNumbers.map((number) => {
     return <p key={number}>{number}</p>;
   });
