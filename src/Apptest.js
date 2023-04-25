@@ -24,7 +24,7 @@ function App() {
     return arrOfRandomNumbers;
   };
 
-  const [data, setData] = useState(getData());// ne moze drugacije da se invokuje sinhrona funkcija (sem useEffect-a)
+  const [data, setData] = useState(getData()); // ne moze drugacije da se invokuje sinhrona funkcija (sem useEffect-a)
 
   //Ansihrona funkcija
   const getAsyncData = () => {
