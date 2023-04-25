@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
 function useRandomNumbers(length, range) {
+  const [hookAsyncData, setHookAsyncData] = useState([]);
   const [error, setError] = useState("");
+  // const [median, setMedian] = useState();
 
   const generator = () => {
     const newArr = [];
@@ -19,11 +21,9 @@ function useRandomNumbers(length, range) {
       }, 3000);
     });
   };
-  const [hookAsyncData, setHookAsyncData] = useState(generator());
 
   const medianValue = () => {
-    debugger;
-    const arr = hookAsyncData;
+    const arr = generator();
     const sorted = arr.sort((a, b) => a - b);
     let median = null;
 
@@ -33,7 +33,11 @@ function useRandomNumbers(length, range) {
       median = sorted[(sorted.length - 1) / 2];
     }
 
-    return median;
+    // if (median < 5) {
+    //   throw new Error("Error median value is less than 5!");
+    // } else {
+    //   return median;
+    // }
   };
 
   const fetchMedian = () => {
@@ -46,10 +50,14 @@ function useRandomNumbers(length, range) {
   };
 
   const handleClick = () => {
+    setHookAsyncData(generator());
+  };
+
+  useEffect(() => {
     fetchNum().then((value) => {
       setHookAsyncData(value);
     });
-  };
+  }, [length, range]);
 
   useEffect(() => {
     try {
