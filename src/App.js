@@ -107,6 +107,7 @@ function App() {
       ) : (
         <p> No result found </p>
       )}
+      <p>************************</p>
       {sortedNumberElements.map((number) => {
         return <p>{number}</p>;
       })}
