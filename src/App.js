@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useRandomNumbers from "./useRandomNumberHook";
 
 function App() {
@@ -33,7 +33,6 @@ function App() {
   const combinedData = [...data, ...asyncData];
   const uniqueNumbers = [...new Set(combinedData)];
   const sortedNumbers = uniqueNumbers.sort((a, b) => a - b);
-
   const sortedNumberElements = sortedNumbers.map((number) => {
     return <p key={number}>{number}</p>;
   });
@@ -52,14 +51,62 @@ function App() {
   const hookArr = hookAsyncData.map((number) => {
     return <p key={number}>{number}</p>;
   });
+  //Task 5 ************************************************
+  const [input, setInput] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+  const allData = [...sortedNumbers, ...hookAsyncData];
+
+  function debounce(cb, delay = 1000) {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        cb(...args);
+      }, delay);
+    };
+  }
+
+  const filterFunction = () => {
+    const filter = allData.filter((num) => num == input);
+    return filter;
+  };
+
+  const invokeDebouncedValidation = useCallback(
+    debounce(() => {
+      setFilteredData(filterFunction());
+    }, 500),
+    [input, allData]
+  );
+
+  const filterMap = filteredData.map((number) => {
+    return <p key={number}>{number}</p>;
+  });
+
+  const initiateSearchParam = (event) => {
+    setInput(event.target.value);
+  };
+
+  useEffect(() => {
+    invokeDebouncedValidation();
+  });
 
   return (
     <>
       <p>
         <label>
-          Search number: <input name="myInput" />
+          <input
+            placeholder="Enter a number you want to find"
+            type="number"
+            value={input}
+            onChange={initiateSearchParam}
+          />
         </label>
       </p>
+      {input ? (
+        filterMap.map((number) => <p>{number}</p>)
+      ) : (
+        <p> No result found </p>
+      )}
       {sortedNumberElements.map((number) => {
         return <p>{number}</p>;
       })}
