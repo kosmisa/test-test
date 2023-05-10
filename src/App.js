@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import useRandomNumbers from "./useRandomNumberHook";
 
 function App() {
   const [asyncData, setAsyncData] = useState([]);
+  const paragraph = useRef([]);
 
   useEffect(() => {
     getAsyncData().then((value) => {
@@ -34,7 +35,11 @@ function App() {
   const uniqueNumbers = [...new Set(combinedData)];
   const sortedNumbers = uniqueNumbers.sort((a, b) => a - b);
   const sortedNumberElements = sortedNumbers.map((number) => {
-    return <p key={number}>{number}</p>;
+    return (
+      <p key={number} ref={paragraph}>
+        {number}
+      </p>
+    );
   });
 
   const [length, setLength] = useState(20);
@@ -49,7 +54,11 @@ function App() {
   };
 
   const hookArr = hookAsyncData.map((number) => {
-    return <p key={number}>{number}</p>;
+    return (
+      <p key={number} ref={paragraph}>
+        {number}
+      </p>
+    );
   });
   //Task 5 ************************************************
   const [input, setInput] = useState(null);
@@ -89,6 +98,24 @@ function App() {
   useEffect(() => {
     invokeDebouncedValidation();
   });
+
+  useEffect(() => {
+    if (Array.isArray(paragraph.current)) {
+      paragraph.current.forEach((p) => {
+        p.style.backgroundColor = "white";
+        p.style.color = "black";
+      });
+
+      if (input) {
+        paragraph.current.forEach((p) => {
+          if (p.textContent === input) {
+            p.style.backgroundColor = "yellow";
+            p.style.color = "black";
+          }
+        });
+      }
+    }
+  }, [input]);
 
   return (
     <>
