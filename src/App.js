@@ -1,43 +1,32 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import useRandomNumbers from "./useRandomNumberHook";
+import getData from "./getData";
+import getAsyncData from "./getAsyncData";
+import { mapArrayValuesToUniqueIds } from "./keys";
 
 function App() {
+  const [data, setData] = useState(() => getData());
   const [asyncData, setAsyncData] = useState([]);
   const paragraph = useRef([]);
+  // const [uniqueKeyArr, setuniqueKeyArr] = useState([]);
 
   useEffect(() => {
-    getAsyncData().then((value) => {
-      setAsyncData(value);
-    });
+    getAsyncData()
+      .then((value) => {
+        setAsyncData(value);
+      })
+      .catch(error);
   }, []);
-
-  const getData = () => {
-    const arrOfRandomNumbers = [];
-
-    for (let i = 0; i < 20; i++) {
-      const randomNumbers = Math.floor(Math.random() * 10 + 1);
-      arrOfRandomNumbers.push(randomNumbers);
-    }
-    return arrOfRandomNumbers;
-  };
-
-  const [data, setData] = useState(getData());
-
-  const getAsyncData = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(getData());
-      }, 2000);
-    });
-  };
 
   const combinedData = [...data, ...asyncData];
   const uniqueNumbers = [...new Set(combinedData)];
   const sortedNumbers = uniqueNumbers.sort((a, b) => a - b);
-  const sortedNumberElements = sortedNumbers.map((number) => {
+  const sortedNumberElements = Array.from(
+    mapArrayValuesToUniqueIds(sortedNumbers).entries()
+  ).map(([key, value]) => {
     return (
-      <p key={number} ref={paragraph}>
-        {number}
+      <p key={key} ref={paragraph}>
+        {value}
       </p>
     );
   });
@@ -60,6 +49,7 @@ function App() {
       </p>
     );
   });
+
   //Task 5 ************************************************
   const [input, setInput] = useState(null);
   const [filteredData, setFilteredData] = useState([]);

@@ -1,25 +1,19 @@
 import { useState, useEffect } from "react";
+import numberGenerator from "./number_gerator";
 
 function useRandomNumbers(length, range) {
   const [error, setError] = useState("");
 
-  const generator = () => {
-    const newArr = [];
-
-    for (let i = 0; i < length; i++) {
-      const randomNumbers = Math.floor(Math.random() * range + 1);
-      newArr.push(randomNumbers);
-    }
-    return newArr;
-  };
   const fetchNum = () => {
     return new Promise((res, rej) => {
       setTimeout(() => {
-        res(generator());
+        res(numberGenerator(length, range));
       }, 3000);
     });
   };
-  const [hookAsyncData, setHookAsyncData] = useState(generator());
+  const [hookAsyncData, setHookAsyncData] = useState(
+    numberGenerator(length, range)
+  );
 
   const medianValue = () => {
     const arr = hookAsyncData;
