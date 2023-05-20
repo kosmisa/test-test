@@ -3,11 +3,12 @@ import useRandomNumbers from "./useRandomNumberHook";
 import getData from "./getData";
 import getAsyncData from "./getAsyncData";
 import { mapArrayValuesToUniqueIds } from "./keys";
+import "./index.css";
 
 function App() {
-  const [data, setData] = useState(() => getData());
+  const [data, setData] = useState(() => getData()); // lazy init
   const [asyncData, setAsyncData] = useState([]);
-  const paragraph = useRef([]);
+  const inputRef = useRef(null);
   // const [uniqueKeyArr, setuniqueKeyArr] = useState([]);
 
   useEffect(() => {
@@ -15,7 +16,9 @@ function App() {
       .then((value) => {
         setAsyncData(value);
       })
-      .catch(error);
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const combinedData = [...data, ...asyncData];
@@ -25,8 +28,8 @@ function App() {
     mapArrayValuesToUniqueIds(sortedNumbers).entries()
   ).map(([key, value]) => {
     return (
-      <p key={key} ref={paragraph}>
-        {value}
+      <p key={key} className="number-paragraph">
+        <span>{value}</span>
       </p>
     );
   });
@@ -44,8 +47,8 @@ function App() {
 
   const hookArr = hookAsyncData.map((number) => {
     return (
-      <p key={number} ref={paragraph}>
-        {number}
+      <p key={number} className="number-paragraph">
+        <span>{number}</span>
       </p>
     );
   });
@@ -78,40 +81,44 @@ function App() {
   );
 
   const filterMap = filteredData.map((number) => {
-    return <p key={number}>{number}</p>;
+    return (
+      <p key={number} className="number-paragraph">
+        <span>{number}</span>
+      </p>
+    );
   });
 
   const initiateSearchParam = (event) => {
     setInput(event.target.value);
+    highlightNumbers(event.target.value);
+  };
+
+  const highlightNumbers = (value) => {
+    const paragraphs = document.querySelectorAll(".number-paragraph");
+
+    paragraphs.forEach((paragraph) => {
+      const numbers = paragraph.querySelectorAll("span");
+
+      numbers.forEach((number) => {
+        if (number.textContent === value) {
+          number.classList.add("highlighted");
+        } else {
+          number.classList.remove("highlighted");
+        }
+      });
+    });
   };
 
   useEffect(() => {
     invokeDebouncedValidation();
   });
 
-  useEffect(() => {
-    if (Array.isArray(paragraph.current)) {
-      paragraph.current.forEach((p) => {
-        p.style.backgroundColor = "white";
-        p.style.color = "black";
-      });
-
-      if (input) {
-        paragraph.current.forEach((p) => {
-          if (p.textContent === input) {
-            p.style.backgroundColor = "yellow";
-            p.style.color = "black";
-          }
-        });
-      }
-    }
-  }, [input]);
-
   return (
     <>
       <p>
         <label>
           <input
+            ref={inputRef}
             placeholder="Enter a number you want to find"
             type="number"
             value={input}

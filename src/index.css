@@ -4,6 +4,7 @@ main {
   line-height: 100vh
 }
 
-.highlight {
-  background-color: rgb(107, 245, 72);
+.highlighted {
+  background-color: yellow;
+  font-weight: bold;
 }
