@@ -8,8 +8,8 @@ import "./index.css";
 function App() {
   const [data, setData] = useState(() => getData()); // lazy init
   const [asyncData, setAsyncData] = useState([]);
-  const inputRef = useRef(null);
   // const [uniqueKeyArr, setuniqueKeyArr] = useState([]);
+  const paragraphRefs = useRef([]);
 
   useEffect(() => {
     getAsyncData()
@@ -27,8 +27,10 @@ function App() {
   const sortedNumberElements = Array.from(
     mapArrayValuesToUniqueIds(sortedNumbers).entries()
   ).map(([key, value]) => {
+    const ref = useRef(null);
+    paragraphRefs.current[key] = ref;
     return (
-      <p key={key} className="number-paragraph">
+      <p key={key} className="number-paragraph" ref={ref}>
         <span>{value}</span>
       </p>
     );
@@ -46,8 +48,10 @@ function App() {
   };
 
   const hookArr = hookAsyncData.map((number) => {
+    const ref = useRef(null);
+    paragraphRefs.current.push(ref);
     return (
-      <p key={number} className="number-paragraph">
+      <p key={number} className="number-paragraph" ref={ref}>
         <span>{number}</span>
       </p>
     );
@@ -81,11 +85,7 @@ function App() {
   );
 
   const filterMap = filteredData.map((number) => {
-    return (
-      <p key={number} className="number-paragraph">
-        <span>{number}</span>
-      </p>
-    );
+    return <p key={number}>{number}</p>;
   });
 
   const initiateSearchParam = (event) => {
@@ -93,19 +93,18 @@ function App() {
     highlightNumbers(event.target.value);
   };
 
-  const highlightNumbers = (value) => {
-    const paragraphs = document.querySelectorAll(".number-paragraph");
+  const highlightNumbers = (inputValue) => {
+    // paragraphs = document.querySelectorAll('.number-paragraph');
 
-    paragraphs.forEach((paragraph) => {
-      const numbers = paragraph.querySelectorAll("span");
-
-      numbers.forEach((number) => {
-        if (number.textContent === value) {
-          number.classList.add("highlighted");
-        } else {
-          number.classList.remove("highlighted");
-        }
-      });
+    // paragraph.forEach
+    paragraphRefs.current.forEach((ref) => {
+      const paragraph = ref.current;
+      const number = paragraph.querySelector("span");
+      if (number === inputValue) {
+        paragraph.classList.add("highlighted");
+      } else {
+        paragraph.classList.remove("highlighted");
+      }
     });
   };
 
@@ -118,7 +117,7 @@ function App() {
       <p>
         <label>
           <input
-            ref={inputRef}
+            ref={paragraphRefs}
             placeholder="Enter a number you want to find"
             type="number"
             value={input}
