@@ -8,7 +8,7 @@ function App() {
   const [data, setData] = useState(() => getData());
   const [asyncData, setAsyncData] = useState([]);
   const paragraphRefs = useRef([]);
-
+  //test
   useEffect(() => {
     getAsyncData()
       .then((value) => {
