@@ -3,3 +3,8 @@ main {
   vertical-align: center;
   line-height: 100vh
 }
+
+.highlighted {
+  background-color: yellow;
+  font-weight: bold;
+}
