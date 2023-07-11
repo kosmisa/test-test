@@ -1,4 +1,4 @@
-TEBRICEEEE
+#React tests
 
 // import "./App.css";
 // Treba 2 funkcije getData koja je sinhrona i vraca 20 random brojeva vrednosti izmedju 1 i 10.
@@ -31,3 +31,29 @@ vazi se sve sto pushujes na github, uradices branch out sa main/master grane, gr
 i onda kad zavrsis uradis Pull request na to
 mene dodaj kao contributora na projekat
 takocemo sad da radimo review
+
+#Aditional Objective:
+Create a user interface (UI) with search and filter functionalities for an array of randomly generated numbers. The search input field should allow users to search for specific numbers within the array. The filter functionality should allow users to display only the numbers that meet certain criteria (e.g., even numbers or numbers greater than a specific value).
+
+Requirements:
+
+Create a search input field:
+
+Add a search input field to the UI that allows users to search for a specific number within the generated random numbers array.
+Implement debouncing for the search input:
+
+Improve performance by debouncing the search input, so the search function is only called after the user has stopped typing for a specified delay (e.g., 300ms).
+Use the useEffect and useCallback hooks to implement the debouncing functionality.
+Highlight paragraphs containing the searched number:
+
+Use DOM manipulation in React to highlight the paragraphs containing the searched number.
+Use the useRef hook to create a reference for each paragraph element.
+Update the corresponding paragraph's styles (e.g., change background color or text color) when the user searches for a number.
+Add a filter functionality:
+
+Allow users to display only the numbers that meet specific criteria, such as even numbers or numbers greater than a certain value.
+Implement the filter functionality using the useCallback hook, ensuring the filter function is only re-created when its dependencies change.
+Display filtered numbers:
+
+Render the filtered numbers as a list of paragraph elements in the UI.
+By the end of the task, the UI should allow users to efficiently search and filter through the randomly generated numbers, with the ability to highlight the searched number in the displayed list.
